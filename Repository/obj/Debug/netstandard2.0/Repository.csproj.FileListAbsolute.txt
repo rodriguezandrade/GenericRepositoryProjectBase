@@ -1,0 +1,8 @@
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\bin\Debug\netstandard2.0\Repository.deps.json
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\bin\Debug\netstandard2.0\Repository.dll
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\bin\Debug\netstandard2.0\Repository.pdb
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfoInputs.cache
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.cs
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.dll
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.pdb
+C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
