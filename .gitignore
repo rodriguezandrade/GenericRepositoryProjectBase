@@ -1,1 +1,12 @@
 .vs/
+Core/bin/
+
+Core/obj/
+
+GenericProjectBase/bin/
+
+GenericProjectBase/obj/
+
+Repository/bin/
+
+Repository/obj/

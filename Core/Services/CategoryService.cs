@@ -1,43 +1,59 @@
-﻿using Core.Services.Interfaces;
+﻿using AutoMapper;
+using Core.Logger.Interface;
+using Core.Services.Interfaces;
 using Repository.Models;
+using Repository.Models.Dtos;
 using Repository.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Services
 {
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryService(ICategoryRepository categoryRepository)
+        private readonly IMapper _mapper;
+        private readonly ILoggerManager _logger;
+
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, ILoggerManager logger)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
-        public IQueryable<Category> GetAll()
-        { 
-            return _categoryRepository.FindAll();
+        public async Task<IEnumerable<CategoryDto>> GetAll()
+        {
+            var result= await _categoryRepository.GetAll();
+            return _mapper.Map<IQueryable<CategoryDto>>(result);
         } 
          
-        public Category Save(Category category)
+        public async Task<CategoryDto> Save(CategoryDto category)
         {
-             return _categoryRepository.Save(category);
+            _logger.LogInfo("Here is info message from the service.");
+            _logger.LogDebug("Here is debug message from the service.");
+            _logger.LogWarn("Here is warn message from the service.");
+            _logger.LogError("Here is error message from the service.");
+
+            return _mapper.Map<CategoryDto>(await _categoryRepository.Save(_mapper.Map<Category>(category)));
         }
 
-        public Category DeleteByName(string name)
+        public async Task<CategoryDto> DeleteByName(string name)
         { 
-            return _categoryRepository.DeleteByName(name);
+            return _mapper.Map<CategoryDto>(await _categoryRepository.DeleteByName(name));
         }
 
 
-        public Category Update(Category model)
+        public async Task<CategoryDto> Update(CategoryDto model)
         {
-            return _categoryRepository.Modify(model);
+            return _mapper.Map<CategoryDto>(await _categoryRepository.Modify(_mapper.Map<Category>(model)));
         }
 
-        public Category GetById(Guid id)
+        public async Task<CategoryDto> GetById(Guid id)
         {
-            return _categoryRepository.GetById(id);
+            return _mapper.Map<CategoryDto>(await _categoryRepository.GetById(id));
         }
     }
 }

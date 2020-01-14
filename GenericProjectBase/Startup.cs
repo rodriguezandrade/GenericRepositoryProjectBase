@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog;
+using System.IO;
 
 namespace GenericProjectBase
 {
@@ -12,7 +14,7 @@ namespace GenericProjectBase
     {
         public Startup(IConfiguration configuration)
         {
-            //LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -22,13 +24,12 @@ namespace GenericProjectBase
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-            //services.ConfigureLoggerService();
+            services.ConfigureLoggerService();
             services.ConfigureMySqlContext(Configuration);
             services.ConfigureClasesWithInterfaces();
-
+            services.AutoMapperConfiguration();
             services.AddControllers();
         } 
 

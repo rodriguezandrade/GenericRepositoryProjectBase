@@ -1,4 +1,8 @@
-﻿using Core.Services;
+﻿using AutoMapper;
+using Core.Logger;
+using Core.Logger.Interface;
+using Core.Profiles;
+using Core.Services;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -32,12 +36,24 @@ namespace GenericProjectBase.Extensions
             });
         }
 
-        //public static void ConfigureLoggerService(this IServiceCollection services)
-        //{
-        //    services.AddSingleton<ILoggerManager, LoggerManager>();
-        //}
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
 
-       //Database configuration
+        public static void AutoMapperConfiguration(this IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Profiles());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            //services.AddAutoMapper(typeof(Startup));
+        }
+
+        //Database configuration
         public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config["SqlConnection:ConnectionString"];

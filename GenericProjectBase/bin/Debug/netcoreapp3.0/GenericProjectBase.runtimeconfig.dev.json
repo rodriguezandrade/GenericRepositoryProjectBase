@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\Catracho\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Catracho\\.nuget\\packages"
-    ]
-  }
-}

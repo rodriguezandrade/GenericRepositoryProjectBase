@@ -4,6 +4,9 @@ using Repository.Repositories.Interfaces;
 using Repository.Models;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
@@ -21,12 +24,12 @@ namespace Repository.Repositories
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public IQueryable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            return _repositoryWrapper.Category.FindAll();
+            return await _repositoryWrapper.Category.FindAll().ToListAsync();
         }
 
-        public Category Save(Category model)
+        public async Task<Category> Save(Category model)
         {
             _repositoryWrapper.Category.Create(model);
             _repositoryWrapper.save();
@@ -34,12 +37,12 @@ namespace Repository.Repositories
             return model;
         }
 
-        public Category DeleteByName(string name)
+        public async Task<Category> DeleteByName(string name)
         {
-            var modelToEliminate = _repositoryWrapper.Category
+            var modelToEliminate = await _repositoryWrapper.Category
                                     .FindByCondition(x => x.Name == name)
                                     .Where(x => x.Name == name)
-                                    .FirstOrDefault();
+                                    .FirstOrDefaultAsync();
 
             _repositoryWrapper.Category.Delete(modelToEliminate);
             _repositoryWrapper.save();
@@ -47,10 +50,10 @@ namespace Repository.Repositories
             return modelToEliminate;
         }
 
-        public Category Modify(Category model)
+        public async Task<Category> Modify(Category model)
         {
 
-            var entity = _repositoryWrapper.Category.FindByCondition(item => item.CategoryId == model.CategoryId).FirstOrDefault();
+            var entity = await _repositoryWrapper.Category.FindByCondition(item => item.Id == model.Id).FirstOrDefaultAsync();
             entity.Name = model.Name;
 
             _repositoryWrapper.Category.Update(entity);
@@ -59,9 +62,9 @@ namespace Repository.Repositories
             return model;
         }
 
-        public Category GetById(Guid id)
-        { 
-            return _repositoryWrapper.Category.FindByCondition(item => item.CategoryId == id).FirstOrDefault();
+        public async Task<Category> GetById(Guid id)
+        {
+            return await _repositoryWrapper.Category.FindByCondition(item => item.Id == id).FirstOrDefaultAsync();
         }
     }
 }
